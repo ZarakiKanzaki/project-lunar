@@ -1,0 +1,17 @@
+
+{
+    "name": "Rust",
+    "image": "mcr.microsoft.com/devcontainers/rust:0-1-bullseye",
+    "customizations": {
+        "vscode": {
+            "settings": {},
+            "extensions": [
+                "vadimcn.vscode-lldb",
+                "better-toml.better-toml",
+                "matklad.rust-analyzer",
+                "clippy-vscode.clippy",
+                "crates.crates"
+            ]
+        }
+    }
+}
