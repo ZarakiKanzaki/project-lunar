@@ -1,4 +1,4 @@
-name: Rust
+name: Continuous Integration
 
 on:
   push:
@@ -19,13 +19,14 @@ jobs:
     - name: Install alsa and udev
       run: sudo apt-get update; sudo apt-get install --no-install-recommends libasound2-dev libudev-dev
       if: runner.os == 'linux'
-    - name: Build
-      run: cargo build --verbose
+    - name: Build and produce coverage
+      run: RUSTFLAGS="-C instrument-coverage" cargo build --verbose
     - name: Run tests
       run: cargo test --verbose
-    - name: Produce code coverage
-      run: RUSTFLAGS="-C instrument-coverage" cargo build
     - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v3 
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      run: |
+        cargo install cargo-tarpaulin
+        cargo tarpaulin --out Xml
+        bash <(curl -s https://codecov.io/bash) -X gcov -t $CODECOV_TOKEN
