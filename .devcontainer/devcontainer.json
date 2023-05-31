@@ -1,7 +1,12 @@
 
 {
     "name": "Rust",
-    "image": "mcr.microsoft.com/devcontainers/rust:0-1-bullseye",
+    "build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			"VARIANT": "0-1-bullseye"
+		}
+	},
     "customizations": {
         "vscode": {
             "settings": {},

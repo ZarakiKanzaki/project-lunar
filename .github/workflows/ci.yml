@@ -23,6 +23,8 @@ jobs:
       run: cargo build --verbose
     - name: Run tests
       run: cargo test --verbose
+    - name: Produce code coverage
+      run: RUSTFLAGS="-C instrument-coverage" cargo build
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3 
       with:
